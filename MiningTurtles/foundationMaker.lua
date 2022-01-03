@@ -20,7 +20,7 @@ function placeFoundation()
     turtle.placeDown()
 end
 
-function ifStartsOnGroundLevel
+function ifStartsOnGroundLevel()
     -- check if placed on ground level. if so, move up 1
     if turtle.inspectDown() == true
     then
