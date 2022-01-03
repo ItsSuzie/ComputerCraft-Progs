@@ -8,6 +8,7 @@
 -- move onto the next block
 
 local curItemSlot = 0
+turtle.select(1)
 
 function placeFoundation()
     -- local curItemSlot = 0
