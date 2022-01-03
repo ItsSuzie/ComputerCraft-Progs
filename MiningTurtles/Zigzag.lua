@@ -6,7 +6,7 @@ local curTorchLoop = 0
 local maxTotalZigzagLen = 15
 
 -- places torch
-funciton placeTorch()
+function placeTorch()
     turtle.back()
     turtle.back()
     turtle.down()
