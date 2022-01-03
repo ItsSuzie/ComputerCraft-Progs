@@ -57,8 +57,8 @@ function foundationLoop()
             -- x walls
             for j = 0, xLength, 1
             do
-                turtle.forward()
                 placeFoundation()
+                turtle.forward()
             end
 
             turtle.turnRight()
@@ -66,8 +66,8 @@ function foundationLoop()
             -- y walls
             for j = 0, zLength, 1
             do
-                turtle.forward()
                 placeFoundation()
+                turtle.forward()
             end
 
             -- turn the turtle
