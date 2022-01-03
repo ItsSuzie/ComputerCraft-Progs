@@ -31,7 +31,7 @@ function foundationLoop()
     if turtle.inspectDown() == true
     then
         --  if blocs above, remove it
-        if.turtle.inspectUp() == true
+        if turtle.inspectUp() == true
         then 
             turtle.digUp()
         end
@@ -69,6 +69,8 @@ function foundationLoop()
 
         end
     end
+
+    turtle.up()
 end
 
 
