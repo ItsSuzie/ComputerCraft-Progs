@@ -20,13 +20,7 @@ function placeFoundation()
     turtle.placeDown()
 end
 
-
-function foundationLoop()
-    -- Variables
-    local xLength = 6
-    local zLength = 4
-    local yLength = 3
-
+function ifStartsOnGroundLevel
     -- check if placed on ground level. if so, move up 1
     if turtle.inspectDown() == true
     then
@@ -38,12 +32,24 @@ function foundationLoop()
         -- move up
         turtle.up()
     end
+end
+    
+
+
+function foundationLoop()
+    -- Variables
+    local xLength = 6
+    local zLength = 4
+    local yLength = 3
 
 
     -- foundation placer loop
     -- height
     for y = 0, yLength, 1
     do
+        -- if turtle starts at ground level
+        ifStartsOnGroundLevel()
+
         -- loop foundation placement
         -- 4 walls
         for i = 0, 1, 1
@@ -66,11 +72,7 @@ function foundationLoop()
 
             -- turn the turtle
             turtle.turnRight()
-
         end
-
-        turtle.up()
-        turtle.back()
     end
 end
 
