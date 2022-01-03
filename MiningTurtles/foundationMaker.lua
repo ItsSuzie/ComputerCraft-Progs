@@ -7,7 +7,7 @@
 -- foundation block
 -- move onto the next block
 
-function placeFoundation()
+function placeFoundation(curItemSlot)
     -- if block below turtle, remove and replace
     if turtle.inspectDown() == true
     then
@@ -16,6 +16,15 @@ function placeFoundation()
     if turtle.inspect() == true
     then
         turtle.dig()
+    end
+
+    -- checs to see if current cursor in inv has a block
+    -- if so, place block. otherwise move to next cursor
+    if turtle.getItemCount() == 0
+    then 
+        -- increment to next slot
+        curItemSlot[1] = curItemSlot[1] + 1
+        turtle.select(curItemSlot[1])
     end
     turtle.placeDown()
 end
@@ -41,6 +50,10 @@ function foundationLoop()
     local xLength = 6
     local zLength = 4
     local yLength = 3
+
+    -- item slots
+    local curItemSlot = {1}
+
 
 
     -- foundation placer loop
