@@ -68,9 +68,10 @@ function foundationLoop()
             turtle.turnRight()
 
         end
-    end
 
-    turtle.up()
+        turtle.up()
+        turtle.back()
+    end
 end
 
 
