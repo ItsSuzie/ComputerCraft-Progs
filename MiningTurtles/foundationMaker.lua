@@ -30,6 +30,12 @@ function foundationLoop()
     -- check if placed on ground level. if so, move up 1
     if turtle.inspectDown() == true
     then
+        --  if blocs above, remove it
+        if.turtle.inspectUp() == true
+        then 
+            turtle.digUp()
+        end
+        -- move up
         turtle.up()
     end
 
