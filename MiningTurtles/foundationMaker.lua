@@ -7,7 +7,8 @@
 -- foundation block
 -- move onto the next block
 
-function placeFoundation(curItemSlot)
+function placeFoundation()
+    local curItemSlot = 0
     -- if block below turtle, remove and replace
     if turtle.inspectDown() == true
     then
@@ -23,8 +24,8 @@ function placeFoundation(curItemSlot)
     if turtle.getItemCount() == 0
     then 
         -- increment to next slot
-        curItemSlot[1] = curItemSlot[1] + 1
-        turtle.select(curItemSlot[1])
+        curItemSlot = curItemSlot + 1
+        turtle.select(curItemSlot)
     end
     turtle.placeDown()
 end
@@ -52,7 +53,7 @@ function foundationLoop()
     local yLength = 3
 
     -- item slots
-    local curItemSlot = {1}
+    -- local curItemSlot = {1}
 
 
 
