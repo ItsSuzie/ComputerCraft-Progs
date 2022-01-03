@@ -7,8 +7,10 @@
 -- foundation block
 -- move onto the next block
 
+local curItemSlot = 0
+
 function placeFoundation()
-    local curItemSlot = 0
+    -- local curItemSlot = 0
     -- if block below turtle, remove and replace
     if turtle.inspectDown() == true
     then
@@ -25,6 +27,7 @@ function placeFoundation()
     then 
         -- increment to next slot
         curItemSlot = curItemSlot + 1
+        print(curItemSlot)
         turtle.select(curItemSlot)
     end
     turtle.placeDown()
