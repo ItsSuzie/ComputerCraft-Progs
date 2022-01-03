@@ -7,13 +7,14 @@ local maxTotalZigzagLen = 15
 
 -- places torch
 function placeTorch()
-    turtle.back()
-    turtle.back()
-    turtle.down()
-    turtle.place()
-    turtle.up()
-    turtle.forward()
-    turtle.forward()
+    -- turtle.back()
+    -- turtle.back()
+    -- turtle.down()
+    -- turtle.place()
+    -- turtle.up()
+    -- turtle.forward()
+    -- turtle.forward()
+    turtle.placeDown()
     curTorchLoop = 0
 end
 
@@ -43,6 +44,20 @@ function mineForward()
     turtle.forward()
     turtle.digUp()
     turtle.digDown()
+end
+
+-- Iterate through each slot of the inventory and drop it into the chest below it
+function emptyInventory(startingSlot)
+    -- do pathfinding stuff here or before in another function
+
+    -- loop through each indext in the inventory and drop item
+    for i = startingSlot, 16, 1
+    do
+        turtle.select(i)
+        turtle.dropDown()
+    end
+
+    turtle.select(1)
 end
 
 -- starting zigzag
@@ -85,7 +100,9 @@ end
 --------------
 -- starting prog
 --------------
-turtle.digUp()
-turtle.digDown()
-startZigZag()
+-- turtle.digUp()
+-- turtle.digDown()
+-- startZigZag()
+
+emptyInventory()
 
