@@ -27,6 +27,7 @@ do
     -- x walls
     for j = 0, xLength, 1
     do
+        turtle.forward()
         placeFoundation()
     end
 
@@ -35,6 +36,7 @@ do
     -- y walls
     for j = 0, yLength, 1
     do
+        turtle.forward()
         placeFoundation()
     end
 
