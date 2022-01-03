@@ -47,7 +47,7 @@ end
 
 -- starting zigzag
 function startZigZag()
-    for i = 0, i maxTotalZigzagLen, 1
+    for i = 0, maxTotalZigzagLen, 1
     do
         -- first line
         for j = 0, maxTotalZigzagLen, 1
