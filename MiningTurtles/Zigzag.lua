@@ -279,42 +279,6 @@ function checkFull()
 end
 
 
--- -- The return trip
--- function zigzagReturn()
---     -- 2nd line
---     for j = 0, zigzagDepth, 1
---     do
---         -- If first time running, set to max
---         if j == zigzagDepth
---         then
---             curZZDepth = curZZDepth - 1
---         end
-
---         mineForward()
-
---         -- Place torch down
---         curTorchLoop = curTorchLoop + 1
---         if curTorchLoop == torchPlacerPerBlock
---         then
---             placeTorch()
---         end
-
---         -- Checs if end
---         if j == zigzagDepth
---         then
---             mineDirection = 0
-
---             -- turn drone left
---             turnLeft()
---         end
-
---         -- update current zz progress
---         curZZDepth = curZZDepth - 1
-
---         -- Update UI
---         info()
---     end
--- end
 
 --------------
 -- starting prog
