@@ -4,8 +4,8 @@
 local curTorchLoop = 0
 local torchPlacerPerBlock = 8
 -- local maxTotalZigzagLen = 15
-local zigzagDepth = 16
-local zigzagWidth = 16
+local zigzagDepth = 0
+local zigzagWidth = 0
 local curZZDepth = 0
 local curZZWidth = 0
 
@@ -26,6 +26,12 @@ function start()
 
     io.write("Columns: ")
     zigzagDepth = io.read()
+
+    zigzagWidth = zigzagWidth - 1
+    zigzagDepth = zigzagDepth - 1
+
+    -- Updates ui
+    info()
     end
 
 -- Create basic ui
@@ -132,6 +138,7 @@ function zigzagForward()
         -- If first time runing, set this run to 0
         if j == 0
         then
+            print("ran first")
             if mineDirection == 0
             then
                 curZZDepth = 0
@@ -171,6 +178,7 @@ function zigzagForward()
         -- Checs if end
         if j == zigzagDepth
         then
+            print("ran last")
             -- Set new mine direction - from forward to return
             if mineDirection == 0
             then
@@ -189,7 +197,7 @@ function zigzagForward()
                 turnLeft()
             end
         end
-        
+
         -- Update UI
         info()
     end
