@@ -246,10 +246,11 @@ function checkFull()
             then
                 for key, value in pairs(garbageItems)
                 do
-                    print(key .. " -- " .. value)
+                    -- print(key .. " -- " .. value)
                     -- if item exists in garbage itms list, then drop item
-                    if turtle.getItemDetail().name == key
+                    if turtle.getItemDetail().name == value
                     then
+                        print("Dropping " .. value)
                         turtle.drop()
                     end
                 -- if turtle.getItemDetail().name == "minecraft:cobblestone" then
