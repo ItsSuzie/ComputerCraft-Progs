@@ -13,6 +13,18 @@ local curZZWidth = 0
 -- 0 = forward, 1 = back
 local mineDirection = 0
 
+local tossGarbage = ""
+local garbageItems = {}
+garbageItems[1] = "minecraft:cobblestone"
+garbageItems[2] = "minecraft:stone"
+garbageItems[3] = "minecraft:dirt"
+garbageItems[4] = "minecraft:gravel"
+garbageItems[5] = "chisel:marble2"
+garbageItems[6] = "chisel:limestone2"
+garbageItems[7] = "minecraft:netherrack"
+garbageItems[8] = "natura:nether_tainted_soil"
+garbageItems[9] = "minecraft:diorite"
+
 
 
 -- The start of the program
@@ -30,6 +42,10 @@ function start()
     zigzagWidth = zigzagWidth - 1
     zigzagDepth = zigzagDepth - 1
 
+    -- if the bot will toss garbage items
+    io.write("Do you want to drop garbage blocks? [yes/no]")
+    tossGarbage = io.read()
+
     -- Updates ui
     info()
     end
@@ -44,15 +60,21 @@ function info()
     print("---------------------------------------")
     print("Mining size: " .. zigzagWidth .. " Wide | by " .. zigzagDepth .. " Deep")
 
-    -- prints off the fuel level to the console
-    print("")
-    print("Fuel level: " .. turtle.getFuelLevel())
-
+    
     -- Prints current mining progress
     print("")
     if mineDirection == 0 then print("Mining forward...")
     elseif mineDirection == 1 then print("Returning...") end
     print("Current progress | Column: " .. curZZDepth .. " | Row: ".. curZZWidth)
+    
+    -- prints off the fuel level to the console
+    print("")
+    print("Fuel level: " .. turtle.getFuelLevel())
+
+    -- Printing if garbage iwll be tossed
+    print("")
+    print("Will garbage be tossed? " .. tossGarbage)
+
 
 end
 
@@ -142,7 +164,6 @@ function zigzagForward()
         then
             if mineDirection == 0
             then
-                print("Mining forwards...")
                 curZZDepth = 0
             
             elseif mineDirection == 1
@@ -202,6 +223,57 @@ function zigzagForward()
 
         -- Update UI
         info()
+
+        -- Check if the inventory is full
+        checkFull()
+    end
+end
+
+-- Checks how many slots in the inventory are full
+function checkFull()
+    if tossGarbage == "yes"
+    then
+        fullSlots = 0
+        local search = 0
+    
+        -- Iterate though all inventory slots
+        for search = 16, 2, -1
+        do
+            -- At each iteration check if current inventory slot is full
+            turtle.select(search)
+            if turtle.getItemCount() > 0
+            then
+                for key, value in ipairs(garbageItems)
+                do
+                    if turtle.getItemDetail().name == key
+                    then
+                        turtle.drop()
+                    end
+                -- if turtle.getItemDetail().name == "minecraft:cobblestone" then
+                --     turtle.drop()
+                -- elseif turtle.getItemDetail().name == "minecraft:stone" then
+                --     turtle.drop()
+                -- elseif turtle.getItemDetail().name == "minecraft:dirt" then
+                --     turtle.drop()
+                -- elseif turtle.getItemDetail().name == "minecraft:gravel" then
+                --     turtle.drop()
+                -- elseif turtle.getItemDetail().name == "chisel:marble2" then
+                --     turtle.drop()
+                -- elseif turtle.getItemDetail().name == "chisel:limestone2" then
+                --     turtle.drop()
+                -- elseif turtle.getItemDetail().name == "minecraft:netherrack" then
+                --     turtle.drop()
+                -- elseif turtle.getItemDetail().name == "natura:nether_tainted_soil" then
+                --     turtle.drop()
+                -- end
+            end
+            if turtle.getItemCount() > 0 then
+                fullSlots = fullSlots + 1
+            end
+        end
+        if fullSlots == 16 then
+            empty()
+        end
     end
 end
 
