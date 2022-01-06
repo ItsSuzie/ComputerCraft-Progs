@@ -49,8 +49,11 @@ function start()
     zigzagDepth = zigzagDepth - 1
 
     -- if the bot will toss garbage items
-    io.write("Do you want to drop garbage blocks? [yes/no]")
+    io.write("Do you want to drop garbage blocks? [yes/no] ")
     tossGarbage = io.read()
+
+    -- updates garbage counter
+    tossCounter = 0
 
     -- Updates ui
     info()
@@ -81,6 +84,13 @@ function info()
     print("")
     print("Will garbage be tossed? " .. tossGarbage)
 
+    -- counting when garbage will be tossed
+    if tossGarbage == "yes"
+    then
+        print("")
+        print("Next garbage toss: " .. tossCounter .."/" .. tossGarbageAtBlockInterval)
+    end
+    
 
 end
 
@@ -239,12 +249,13 @@ function zigzagForward()
             tossCounter = 0
         end
         tossCounter = tossCounter + 1
-        
+
     end
 end
 
 -- Checks how many slots in the inventory are full
 function checkFull()
+    print("Tossing Garbage...")
     if tossGarbage == "yes"
     then
         fullSlots = 0
