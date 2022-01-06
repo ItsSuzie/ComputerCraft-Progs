@@ -244,34 +244,20 @@ function checkFull()
             turtle.select(search)
             if turtle.getItemCount() > 0
             then
-                -- for key, value in pairs(garbageItems)
-                for index, value in ipairs(garbageItems)
-                do
-                    -- print(key .. " -- " .. value)
-                    -- if item exists in garbage itms list, then drop item
-                    if turtle.getItemDetail().name == value
-                    then
-                        print("Dropping " .. value)
-                        turtle.drop()
-                    end
-                -- if turtle.getItemDetail().name == "minecraft:cobblestone" then
-                --     turtle.drop()
-                -- elseif turtle.getItemDetail().name == "minecraft:stone" then
-                --     turtle.drop()
-                -- elseif turtle.getItemDetail().name == "minecraft:dirt" then
-                --     turtle.drop()
-                -- elseif turtle.getItemDetail().name == "minecraft:gravel" then
-                --     turtle.drop()
-                -- elseif turtle.getItemDetail().name == "chisel:marble2" then
-                --     turtle.drop()
-                -- elseif turtle.getItemDetail().name == "chisel:limestone2" then
-                --     turtle.drop()
-                -- elseif turtle.getItemDetail().name == "minecraft:netherrack" then
-                --     turtle.drop()
-                -- elseif turtle.getItemDetail().name == "natura:nether_tainted_soil" then
-                --     turtle.drop()
+                -- -- for key, value in pairs(garbageItems)
+                -- for index, value in ipairs(garbageItems)
+                -- do
+                --     -- print(key .. " -- " .. value)
+                --     -- if item exists in garbage itms list, then drop item
+                --     -- if turtle.getItemDetail().name == value
+                --     -- then
+                --     --     print("Dropping " .. value)
+                --     --     turtle.drop()
+                --     -- end
                 -- end
-                end
+
+                -- forgoing for loop fo rnow, doing function
+                dropGarbage()
             end
             if turtle.getItemCount() > 0 then
                 fullSlots = fullSlots + 1
@@ -281,6 +267,31 @@ function checkFull()
             empty()
         end
     end
+end
+
+
+function dropGarbage()
+
+    if turtle.getItemDetail().name == "minecraft:cobblestone" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:stone" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:dirt" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:gravel" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "chisel:marble2" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "chisel:limestone2" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:netherrack" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "natura:nether_tainted_soil" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:diorite" then
+        turtle.drop()
+    end
+
 end
 
 
