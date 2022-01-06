@@ -13,6 +13,12 @@ local curZZWidth = 0
 -- 0 = forward, 1 = back
 local mineDirection = 0
 
+
+-- Tossing garbage
+local tossGarbageAtBlockInterval = 64
+local tossCounter = 0
+
+
 local tossGarbage = ""
 local garbageItems = {}
 garbageItems[1] = "minecraft:cobblestone"
@@ -225,8 +231,15 @@ function zigzagForward()
         -- Update UI
         info()
 
-        -- Check if the inventory is full
-        checkFull()
+        -- updates iteration
+        if tossCounter > tossGarbageAtBlockInterval
+        then
+            -- Check if the inventory is full
+            checkFull()
+            tossCounter = 0
+        end
+        tossCounter = tossCounter + 1
+        
     end
 end
 
@@ -269,7 +282,7 @@ function checkFull()
     end
 end
 
-
+-- stores all garbage to drop sadly
 function dropGarbage()
 
     if turtle.getItemDetail().name == "minecraft:cobblestone" then
