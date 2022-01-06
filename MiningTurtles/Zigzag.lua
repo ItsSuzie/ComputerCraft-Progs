@@ -53,7 +53,7 @@ end
 -- Zigzag mining code
 
 -- places torch down
-function placeTorch())
+function placeTorch()
     turtle.placeDown()
     curTorchLoop = 0
 end
@@ -124,8 +124,8 @@ end
 -- going forward
 function zigzagForward()
      -- first line
-     for j = 0, zigzagDepth, 1
-     do
+    for j = 0, zigzagDepth, 1
+    do
 
 
 
@@ -135,9 +135,8 @@ function zigzagForward()
             if mineDirection == 0
             then
                 curZZDepth = 0
-            end
             
-            else if mineDirection == 1
+            elseif mineDirection == 1
             then
                 curZZDepth = zigzagDepth
             end
@@ -161,8 +160,8 @@ function zigzagForward()
         if mineDirection == 0
         then
             curZZDepth = curZZDepth + 1
-        end
-        else if mineDirection == 1
+
+        elseif mineDirection == 1
         then
             curZZDepth = curZZDepth - 1
         end
@@ -179,10 +178,10 @@ function zigzagForward()
                 
                 -- turns drone right
                 turnRight()
-            end
+
 
             -- from return to forward
-            else if mineDirection == 1
+            elseif mineDirection == 1
             then
                 mineDirection = 0
 
@@ -192,7 +191,7 @@ function zigzagForward()
 
         -- Update UI
         info()
-     end
+    end
 end
 
 
