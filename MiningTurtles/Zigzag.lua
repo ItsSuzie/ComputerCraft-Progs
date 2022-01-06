@@ -187,8 +187,9 @@ function zigzagForward()
 
                 -- turn drone left
                 turnLeft()
+            end
         end
-
+        
         -- Update UI
         info()
     end
