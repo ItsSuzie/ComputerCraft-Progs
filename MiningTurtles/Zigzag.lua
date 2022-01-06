@@ -67,7 +67,7 @@ function info()
     
 
     print("---------------------------------------")
-    print("Mining size: " .. zigzagWidth .. " Wide | by " .. zigzagDepth .. " Deep")
+    print("Mining size: " .. zigzagWidth + 1 .. " Wide | by " .. zigzagDepth + 1 .. " Deep")
 
     
     -- Prints current mining progress
@@ -87,7 +87,6 @@ function info()
     -- counting when garbage will be tossed
     if tossGarbage == "yes"
     then
-        print("")
         print("Next garbage toss: " .. tossCounter .."/" .. tossGarbageAtBlockInterval)
     end
     
