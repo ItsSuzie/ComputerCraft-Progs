@@ -84,6 +84,7 @@ end
 
 -- places torch down
 function placeTorch()
+    turtle.select(1)
     turtle.placeDown()
     curTorchLoop = 0
 end
