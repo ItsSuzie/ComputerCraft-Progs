@@ -244,7 +244,8 @@ function checkFull()
             turtle.select(search)
             if turtle.getItemCount() > 0
             then
-                for key, value in pairs(garbageItems)
+                -- for key, value in pairs(garbageItems)
+                for index, value in ipairs(garbageItems)
                 do
                     -- print(key .. " -- " .. value)
                     -- if item exists in garbage itms list, then drop item
