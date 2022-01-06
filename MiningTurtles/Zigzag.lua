@@ -246,7 +246,7 @@ function checkFull()
             then
                 for key, value in ipairs(garbageItems)
                 do
-                    if turtle.getItemDetail().name == key
+                    if turtle.getItemDetail().name == value
                     then
                         turtle.drop()
                     end
