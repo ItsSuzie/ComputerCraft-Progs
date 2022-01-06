@@ -313,6 +313,10 @@ function dropGarbage()
         turtle.drop()
     elseif turtle.getItemDetail().name == "minecraft:diorite" then
         turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:cobbled_deepslate" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:tuff" then
+        turtle.drop()
     end
 
 end
