@@ -50,7 +50,9 @@ function info()
 
     -- Prints current mining progress
     print("")
-    print("Current progress | Column: " .. curZZDepth .. " | Row: ".. curZZDepth)
+    if mineDirection = 0 then print("Mining forward...")
+    elseif mineDirection = 1 then print("Returning...")
+    print("Current progress | Column: " .. curZZDepth .. " | Row: ".. curZZWidth)
 
 end
 
@@ -140,12 +142,12 @@ function zigzagForward()
         then
             if mineDirection == 0
             then
-                print("0")
+                print("Mining forwards...")
                 curZZDepth = 0
             
             elseif mineDirection == 1
             then
-                print("0")
+                print()
                 curZZDepth = zigzagDepth
             end
         end
@@ -179,7 +181,6 @@ function zigzagForward()
         -- Checs if end
         if j == zigzagDepth
         then
-            print("ran last")
             -- Set new mine direction - from forward to return
             if mineDirection == 0
             then
