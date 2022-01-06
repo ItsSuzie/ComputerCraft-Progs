@@ -266,6 +266,7 @@ function checkFull()
                 -- elseif turtle.getItemDetail().name == "natura:nether_tainted_soil" then
                 --     turtle.drop()
                 -- end
+                end
             end
             if turtle.getItemCount() > 0 then
                 fullSlots = fullSlots + 1
