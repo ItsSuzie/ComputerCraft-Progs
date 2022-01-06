@@ -51,7 +51,7 @@ function info()
     -- Prints current mining progress
     print("")
     if mineDirection == 0 then print("Mining forward...")
-    elseif mineDirection == 1 then print("Returning...")
+    elseif mineDirection == 1 then print("Returning...") end
     print("Current progress | Column: " .. curZZDepth .. " | Row: ".. curZZWidth)
 
 end
