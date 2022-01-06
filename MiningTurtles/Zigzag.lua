@@ -1,19 +1,59 @@
 -- Create a zigzag pattern with the mining turtle
 
 -- variables
-local torchPlacerPerBlock = 4
 local curTorchLoop = 0
-local maxTotalZigzagLen = 15
+local torchPlacerPerBlock = 8
+-- local maxTotalZigzagLen = 15
+local zigzagDepth = 16
+local zigzagWidth = 16
+local curZZDepth = 0
+local curZZWidth = 0
 
--- places torch
-function placeTorch()
-    -- turtle.back()
-    -- turtle.back()
-    -- turtle.down()
-    -- turtle.place()
-    -- turtle.up()
-    -- turtle.forward()
-    -- turtle.forward()
+-- every zigzag you flip this toggle
+-- 0 = forward, 1 = back
+local mineDirection = 0
+
+
+
+-- The start of the program
+function start()
+    term.clear()
+    term.setCursorPos(1,1)
+
+    -- set depth and width to mine
+    io.write("Rows: ")
+    zigzagWidth = io.read()
+
+    io.write("Columns: ")
+    zigzagDepth = io.read()
+    end
+
+-- Create basic ui
+function info()
+    -- Sets up the UI
+    term.clear()
+    term.setCursorPos(1,1)
+    
+
+    print("---------------------------------------")
+    print("Mining size: " .. zigzagWidth .. " Wide | by " .. zigzagDepth .. " Deep")
+
+    -- prints off the fuel level to the console
+    print("")
+    print("Fuel level: " .. turtle.getFuelLevel())
+
+    -- Prints current mining progress
+    print("")
+    print("Current progress | Column: " .. zigzagDepth .. " | Row: ".. zigzagWidth)
+
+end
+
+
+-- **************************************
+-- Zigzag mining code
+
+-- places torch down
+function placeTorch())
     turtle.placeDown()
     curTorchLoop = 0
 end
@@ -60,49 +100,150 @@ function emptyInventory(startingSlot)
     turtle.select(1)
 end
 
+
+-- *************************************
+-- Zigzag mining
+
+
 -- starting zigzag
 function startZigZag()
-    for i = 0, maxTotalZigzagLen, 1
+    for i = 0, zigzagWidth, 1
     do
-        -- first line
-        for j = 0, maxTotalZigzagLen, 1
-        do
-            mineForward()
+        zigzagForward()
 
-            curTorchLoop = curTorchLoop + 1
-            if curTorchLoop == torchPlacerPerBlock
-            then
-                placeTorch()
-            end
-        end
-        
-        -- turn right
-        turnRight()
+        curZZWidth = curZZWidth + 1
+        info()
+        -- -- every loop set a flag, if 0, go forward, if 1 go back
+        -- if mineDirection == 0 then zigzagForward() end
 
-        -- 2nd line
-        for j = 0, maxTotalZigzagLen, 1
-        do
-            mineForward()
-
-            curTorchLoop = curTorchLoop + 1
-            if curTorchLoop == torchPlacerPerBlock
-            then
-                placeTorch()
-            end
-        end
-
-        -- turn left
-        turnLeft()
+        -- if mineDirection == 1 then zigzagReturn() end
     end
 end
 
 
+-- going forward
+function zigzagForward()
+     -- first line
+     for j = 0, zigzagDepth, 1
+     do
+
+
+
+        -- If first time runing, set this run to 0
+        if j == 0
+        then
+            if mineDirection == 0
+            then
+                curZZDepth = 0
+            end
+            
+            else if mineDirection == 1
+            then
+                curZZDepth = zigzagDepth
+            end
+        end
+
+        -- Mine forward
+         mineForward()
+
+
+
+        -- Place torch down
+        curTorchLoop = curTorchLoop + 1
+        if curTorchLoop == torchPlacerPerBlock
+        then
+            placeTorch()
+        end
+
+
+        
+        -- Updates zigzag progress
+        if mineDirection == 0
+        then
+            curZZDepth = curZZDepth + 1
+        end
+        else if mineDirection == 1
+        then
+            curZZDepth = curZZDepth - 1
+        end
+
+
+
+        -- Checs if end
+        if j == zigzagDepth
+        then
+            -- Set new mine direction - from forward to return
+            if mineDirection == 0
+            then
+                mineDirection = 1
+                
+                -- turns drone right
+                turnRight()
+            end
+
+            -- from return to forward
+            else if mineDirection == 1
+            then
+                mineDirection = 0
+
+                -- turn drone left
+                turnLeft()
+        end
+
+        -- Update UI
+        info()
+     end
+end
+
+
+-- -- The return trip
+-- function zigzagReturn()
+--     -- 2nd line
+--     for j = 0, zigzagDepth, 1
+--     do
+--         -- If first time running, set to max
+--         if j == zigzagDepth
+--         then
+--             curZZDepth = curZZDepth - 1
+--         end
+
+--         mineForward()
+
+--         -- Place torch down
+--         curTorchLoop = curTorchLoop + 1
+--         if curTorchLoop == torchPlacerPerBlock
+--         then
+--             placeTorch()
+--         end
+
+--         -- Checs if end
+--         if j == zigzagDepth
+--         then
+--             mineDirection = 0
+
+--             -- turn drone left
+--             turnLeft()
+--         end
+
+--         -- update current zz progress
+--         curZZDepth = curZZDepth - 1
+
+--         -- Update UI
+--         info()
+--     end
+-- end
+
 --------------
 -- starting prog
 --------------
--- turtle.digUp()
--- turtle.digDown()
--- startZigZag()
 
-emptyInventory()
+-- inits project
+start()
+
+-- starts digging
+turtle.digUp()
+turtle.digDown()
+startZigZag()
+
+-- emptyInventory()
 
