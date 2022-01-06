@@ -317,6 +317,10 @@ function dropGarbage()
         turtle.drop()
     elseif turtle.getItemDetail().name == "minecraft:tuff" then
         turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:granite" then
+        turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:andesite" then
+        turtle.drop()
     end
 
 end
