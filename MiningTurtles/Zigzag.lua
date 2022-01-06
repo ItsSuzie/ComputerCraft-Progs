@@ -246,6 +246,7 @@ function checkFull()
             then
                 for key, value in pairs(garbageItems)
                 do
+                    print(key .. " -- " .. value)
                     -- if item exists in garbage itms list, then drop item
                     if turtle.getItemDetail().name == key
                     then
