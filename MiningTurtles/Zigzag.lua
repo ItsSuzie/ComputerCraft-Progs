@@ -321,6 +321,8 @@ function dropGarbage()
         turtle.drop()
     elseif turtle.getItemDetail().name == "minecraft:andesite" then
         turtle.drop()
+    elseif turtle.getItemDetail().name == "minecraft:magma_block" then
+        turtle.drop()
     end
 
 end
