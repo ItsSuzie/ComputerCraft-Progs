@@ -4,15 +4,27 @@
 local curTorchLoop = 0
 local torchPlacerPerBlock = 8
 -- local maxTotalZigzagLen = 15
+
+-- movement variables, for pathfinding back home
 local zigzagDepth = 0
 local zigzagWidth = 0
-local curZZDepth = 0
-local curZZWidth = 0
+local curZZDepth = 0 -- z axis, forward and back
+local curZZWidth = 0 -- x axis, left and right
+
+local whenToReturnHomeInterval = 128
+local moveCounter = 0
+
+local lastMiningPositionX = 0
+local lastMiningPositiony = 0
+local lastMiningPositionz = 0
 
 -- every zigzag you flip this toggle
 -- 0 = forward, 1 = back
 local mineDirection = 0
 
+-- moving home and dig down
+local digDown = ""
+local digDownAmount = 0
 
 -- Tossing garbage
 local tossGarbageAtBlockInterval = 64
@@ -31,6 +43,11 @@ garbageItems[7] = "minecraft:netherrack"
 garbageItems[8] = "natura:nether_tainted_soil"
 garbageItems[9] = "minecraft:diorite"
 
+
+-- pathfinding back home
+local posX = 0  -- Left and right
+local posY = 0  -- Up and down
+local posZ = 0  -- forwards and back
 
 
 -- The start of the program
@@ -54,6 +71,16 @@ function start()
 
     -- updates garbage counter
     tossCounter = 0
+    
+    -- ask if want to dig down
+    io.write("Do you want me to return home and dig down? [yes/no] ")
+    digDown = io.read()
+
+    if digDown == "yes"
+    then
+        io.write("How deep do you want me to dig? ")
+        digDownAmount = io.read()
+    end
 
     -- Updates ui
     info()
@@ -88,6 +115,11 @@ function info()
     if tossGarbage == "yes"
     then
         print("Next garbage toss: " .. tossCounter .."/" .. tossGarbageAtBlockInterval)
+    end
+
+    if digDown == "yes"
+    then
+        print("Current dig down counter: " .. digDownAmount)
     end
     
 
@@ -146,6 +178,49 @@ function emptyInventory(startingSlot)
     turtle.select(1)
 end
 
+function returnHome()
+    -- rotate()
+
+    -- Sets last mining position to return to
+    lastMiningPositionX = curZZWidth
+    lastMiningPositiony = posY
+    lastMiningPositionZ = zigzagDepth
+
+    local step = 0
+    for step = posY - 1, 0, -1 do
+        turtle.up()
+    end
+    -- for step = posX - 1, 0, -1 do -- x axis
+    for step = curZZWidth, 0, -1
+    do
+        turtle.forward()
+    end
+    turtle.turnLeft()
+    -- for step = posZ - 1, 0, -1 do -- z axis
+    for step = zigzagDepth, 0, -1
+        turtle.forward()
+    end
+
+
+    -- empty inventory
+end
+
+function returnToMiningLocation()
+    local step = 0
+    for step = lastMiningPositiony, 0, -1 do
+        turtle.up()
+    end
+    -- for step = posX - 1, 0, -1 do -- x axis
+    for step = lastMiningPositionX, 0, -1
+    do
+        turtle.forward()
+    end
+    turtle.turnLeft()
+    -- for step = posZ - 1, 0, -1 do -- z axis
+    for step = lastMiningPositionZ, 0, -1
+        turtle.forward()
+    end
+end
 
 -- *************************************
 -- Zigzag mining
@@ -157,13 +232,51 @@ function startZigZag()
     do
         zigzagForward()
 
-        curZZWidth = curZZWidth + 1
-        info()
-        -- -- every loop set a flag, if 0, go forward, if 1 go back
-        -- if mineDirection == 0 then zigzagForward() end
 
-        -- if mineDirection == 1 then zigzagReturn() end
+        -- Updates z width
+        curZZWidth = curZZWidth + 1
+
+        --  if turtle as reached end of the program,
+        -- return home and dig down
+        if curZZWidth == zigzagWidth
+        then
+            if digDown == "yes"
+            then
+                if digDownAmount > 1
+                then
+                    digDownFromEnd()
+                    digDownAmount = digDownAmount - 1
+                end
+            end
+        end
+
+        -- Updates ui
+        info()
     end
+end
+
+function digDownFromEnd()
+    -- loop return home
+    turtle.turnLeft()
+    for i = curZZWidth, 0, -1
+    then
+        turtle.forward()
+    end
+    -- reached home, turn right and restart program
+    turtle.turnRight()
+    turtle.digDown()
+    turtle.down()
+    turtle.digDown()
+    turtle.down()
+    turtle.digDown()
+    turtle.down()
+    
+
+    curZZWidth = 0
+    curZZDepth = 0
+
+    -- Update ui
+    info()
 end
 
 
@@ -196,14 +309,18 @@ function zigzagForward()
 
         -- Place torch down
         curTorchLoop = curTorchLoop + 1
-        if curTorchLoop == torchPlacerPerBlock
+        if mineDirection == 0
         then
-            placeTorch()
+            if curTorchLoop == torchPlacerPerBlock
+            then
+                placeTorch()
+            end
         end
 
 
         
         -- Updates zigzag progress
+        -- If going forward
         if mineDirection == 0
         then
             curZZDepth = curZZDepth + 1
@@ -240,7 +357,7 @@ function zigzagForward()
         -- Update UI
         info()
 
-        -- updates iteration
+        -- updates iteration for tossing garbage
         if tossCounter > tossGarbageAtBlockInterval
         then
             -- Check if the inventory is full
@@ -248,6 +365,17 @@ function zigzagForward()
             tossCounter = 0
         end
         tossCounter = tossCounter + 1
+
+
+        -- todo, add retrun and dorp items funcion
+    
+        -- -- updates iteration when to return home
+        -- if moveCounter > whenToReturnHomeInterval
+        -- then
+        --     returnHome()
+        --     moveCounter = 0
+        -- end
+        -- moveCounter = moveCounter + 1
 
     end
 end
