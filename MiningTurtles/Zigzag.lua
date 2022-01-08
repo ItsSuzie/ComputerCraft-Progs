@@ -1,8 +1,8 @@
 -- Create a zigzag pattern with the mining turtle
 
 -- variables
-local curTorchLoop = 0
-local torchPlacerPerBlock = 8
+curTorchLoop = 0
+torchPlacerPerBlock = 8
 -- local maxTotalZigzagLen = 15
 
 -- movement variables, for pathfinding back home
@@ -186,7 +186,7 @@ function returnHome()
     lastMiningPositiony = posY
     lastMiningPositionZ = zigzagDepth
 
-    local step = 0
+    step = 0
     for step = posY - 1, 0, -1 
     do
         turtle.up()
@@ -208,7 +208,7 @@ function returnHome()
 end
 
 function returnToMiningLocation()
-    local step = 0
+    step = 0
     for step = lastMiningPositiony, 0, -1 do
         turtle.up()
     end
@@ -220,6 +220,7 @@ function returnToMiningLocation()
     turtle.turnLeft()
     -- for step = posZ - 1, 0, -1 do -- z axis
     for step = lastMiningPositionZ, 0, -1
+    do
         turtle.forward()
     end
 end
@@ -240,17 +241,21 @@ function startZigZag()
 
         --  if turtle as reached end of the program,
         -- return home and dig down
-        if curZZWidth == zigzagWidth
+        if mineDirection == 0
         then
-            if digDown == "yes"
+            if curZZWidth == zigzagWidth
             then
-                if digDownAmount > 1
+                if digDown == "yes"
                 then
-                    digDownFromEnd()
-                    digDownAmount = digDownAmount - 1
+                    if digDownAmount > 1
+                    then
+                        digDownFromEnd()
+                        digDownAmount = digDownAmount - 1
+                    end
                 end
             end
         end
+        
 
         -- Updates ui
         info()
