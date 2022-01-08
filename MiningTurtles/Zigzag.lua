@@ -187,7 +187,8 @@ function returnHome()
     lastMiningPositionZ = zigzagDepth
 
     local step = 0
-    for step = posY - 1, 0, -1 do
+    for step = posY - 1, 0, -1 
+    do
         turtle.up()
     end
     -- for step = posX - 1, 0, -1 do -- x axis
@@ -198,6 +199,7 @@ function returnHome()
     turtle.turnLeft()
     -- for step = posZ - 1, 0, -1 do -- z axis
     for step = zigzagDepth, 0, -1
+    do
         turtle.forward()
     end
 
@@ -259,7 +261,7 @@ function digDownFromEnd()
     -- loop return home
     turtle.turnLeft()
     for i = curZZWidth, 0, -1
-    then
+    do
         turtle.forward()
     end
     -- reached home, turn right and restart program
