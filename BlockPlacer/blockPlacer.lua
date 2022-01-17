@@ -76,7 +76,7 @@ end
 -- Runs every update of the program 
 function Update()
     -- If we havent reached the end yet
-    while (curBlockColumnDistance < blockPlaceColumnDistance)
+    while (curBlockColumnDistance <= blockPlaceColumnDistance)
     do
         --  Update ui info
         info()
@@ -109,7 +109,7 @@ function placeBlock()
     -- place block
 
     -- If current slot is empty, move onto next slot
-    if (turtle.getItemDetail == nil)
+    if (turtle.getItemCount == 0)
     then
         curSlot = curSlot + 1
         turtle.select(curSlot)
