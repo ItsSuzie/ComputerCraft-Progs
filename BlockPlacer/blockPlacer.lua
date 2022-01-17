@@ -103,6 +103,14 @@ end
 -- Places block below
 function placeBlock()
     
+    -- If current slot is empty, move onto next slot
+    if (turtle.getItemCount == 0)
+    then
+        curSlot = curSlot + 1
+        turtle.select(curSlot)
+    end
+
+    
     -- If block exists below, remove block, then place block
     if(turtle.detectDown())
     then
@@ -111,12 +119,6 @@ function placeBlock()
 
     -- place block
 
-    -- If current slot is empty, move onto next slot
-    if (turtle.getItemCount == 0)
-    then
-        curSlot = curSlot + 1
-        turtle.select(curSlot)
-    end
 
     turtle.placeDown()
 end
