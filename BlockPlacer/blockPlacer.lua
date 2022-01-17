@@ -122,3 +122,5 @@ function removeBlockInFront()
     turtle.dig()
 end
 
+start()
+Update()
