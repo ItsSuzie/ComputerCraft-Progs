@@ -24,14 +24,16 @@ function start()
     -- Set the depth, column distance to mine
     io.write("How far out to place blocks: ")
     blockPlaceColumnDistance = io.read()
-    blockPlaceColumnDistance = blockPlaceColumnDistance - 1
-
+    
     -- Determine how many slots to use for the block placing
     if (blockPlaceColumnDistance > 64)
     then
         slotUsage = math.floor(blockPlaceColumnDistance/64)
     end
-
+    -- Do this after math
+    blockPlaceColumnDistance = blockPlaceColumnDistance - 1
+ 
+    
     io.write("Do you want to drop garbage blocks if any digged up?")
     io.write("Ideal if placing blocks in long distances: [yes/no]")
     tossGarbage = io.read()
