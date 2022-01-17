@@ -241,18 +241,12 @@ function startZigZag()
 
         --  if turtle as reached end of the program,
         -- return home and dig down
-        if mineDirection == 0
+        if (mineDirection == 0 and curZZWidth == zigzagWidth and digDown == "yes")
         then
-            if curZZWidth == zigzagWidth
+            if digDownAmount >= 1
             then
-                if digDown == "yes"
-                then
-                    if digDownAmount > 1
-                    then
-                        digDownFromEnd()
-                        digDownAmount = digDownAmount - 1
-                    end
-                end
+                digDownFromEnd()
+                digDownAmount = digDownAmount - 1
             end
         end
         
