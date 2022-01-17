@@ -24,6 +24,7 @@ function start()
     -- Set the depth, column distance to mine
     io.write("How far out to place blocks: ")
     blockPlaceColumnDistance = io.read()
+    blockPlaceColumnDistance = tonumber(blockPlaceColumnDistance)
     
     -- Determine how many slots to use for the block placing
     if (blockPlaceColumnDistance > 64)
