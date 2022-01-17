@@ -104,7 +104,7 @@ end
 function placeBlock()
     
     -- If current slot is empty, move onto next slot
-    if (turtle.getItemCount == 0)
+    if (turtle.getItemCount() == 0)
     then
         curSlot = curSlot + 1
         turtle.select(curSlot)
