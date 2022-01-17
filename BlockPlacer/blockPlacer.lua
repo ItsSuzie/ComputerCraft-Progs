@@ -91,6 +91,8 @@ function Update()
 
         -- place block down
         placeBlock()
+
+        curBlockColumnDistance = curBlockColumnDistance + 1
     end
 
 end
