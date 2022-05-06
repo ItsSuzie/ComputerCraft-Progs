@@ -5,6 +5,9 @@ curTorchLoop = 0
 torchPlacerPerBlock = 8
 -- local maxTotalZigzagLen = 15
 
+-- if dig or place
+local mineorPlace = ""
+
 -- movement variables, for pathfinding back home
 local zigzagDepth = 0
 local zigzagWidth = 0
@@ -55,6 +58,10 @@ function start()
     term.clear()
     term.setCursorPos(1,1)
 
+    -- ask if we want to mine the blocks or place them
+    io.write("Do you want to mine or place the blocks? [mine/place] ")
+    mineorPlace = io.read()
+
     -- set depth and width to mine
     io.write("Rows: ")
     zigzagWidth = io.read()
@@ -95,6 +102,7 @@ function info()
 
     print("---------------------------------------")
     print("Mining size: " .. zigzagWidth + 1 .. " Wide | by " .. zigzagDepth + 1 .. " Deep")
+    print("Mode: " .. mineorPlace)
 
     
     -- Prints current mining progress
@@ -163,6 +171,36 @@ function mineForward()
     turtle.digUp()
     turtle.digDown()
 end
+
+
+
+-- **************************************
+-- Zigzag placing code
+
+
+-- turn the turtle right and mine
+function floorturnRight()
+    turtle.placeDown()
+    turtle.turnRight()
+    turtle.forward()
+    turtle.turnRight()
+end
+
+-- turn left
+function floorturnLeft()
+    turtle.placeDown()
+    turtle.turnLeft()
+    turtle.forward()
+    turtle.turnLeft()
+end
+
+-- mines forward
+function floorForward()
+    turtle.placeDown()
+    turtle.forward()
+end
+
+
 
 -- Iterate through each slot of the inventory and drop it into the chest below it
 function emptyInventory(startingSlot)
@@ -256,6 +294,7 @@ function startZigZag()
     end
 end
 
+
 function digDownFromEnd()
     -- loop return home
     turtle.turnLeft()
@@ -304,19 +343,23 @@ function zigzagForward()
         end
 
         -- Mine forward
-         mineForward()
+        if (mineorPlace == "mine") then
+            mineForward()
+        elseif (mineorPlace == "place") then
+            floorForward()
+        end
 
 
 
         -- Place torch down
-        curTorchLoop = curTorchLoop + 1
-        if mineDirection == 0
-        then
-            if curTorchLoop == torchPlacerPerBlock
-            then
-                placeTorch()
-            end
-        end
+        -- curTorchLoop = curTorchLoop + 1
+        -- if mineDirection == 0
+        -- then
+        --     if curTorchLoop == torchPlacerPerBlock
+        --     then
+        --         placeTorch()
+        --     end
+        -- end
 
 
         
@@ -342,7 +385,11 @@ function zigzagForward()
                 mineDirection = 1
                 
                 -- turns drone right
-                turnRight()
+                if (mineorPlace == "mine") then
+                    turnRight()
+                elseif (mineorPlace == "place") then
+                    floorturnRight()
+                end
 
 
             -- from return to forward
@@ -351,7 +398,11 @@ function zigzagForward()
                 mineDirection = 0
 
                 -- turn drone left
-                turnLeft()
+                if (mineorPlace == "mine") then
+                    turnLeft()
+                elseif (mineorPlace == "place") then
+                    floorturnLeft()
+                end
             end
         end
 
@@ -466,9 +517,11 @@ end
 start()
 
 -- starts digging
-turtle.digUp()
-turtle.digDown()
-startZigZag()
+if (mineorPlace == "mine")  then
+    turtle.digUp()
+    turtle.digDown()
+end
+    startZigZag()
 
 -- emptyInventory()
 
