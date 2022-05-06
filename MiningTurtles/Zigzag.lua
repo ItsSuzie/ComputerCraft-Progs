@@ -3,6 +3,8 @@
 -- variables
 curTorchLoop = 0
 torchPlacerPerBlock = 8
+local curItemSlot = 0
+turtle.select(1)
 -- local maxTotalZigzagLen = 15
 
 -- if dig or place
@@ -70,7 +72,7 @@ function start()
     zigzagDepth = io.read()
 
     zigzagWidth = zigzagWidth - 1
-    zigzagDepth = zigzagDepth - 1
+    zigzagDepth = zigzagDepth - 2
 
     -- if the bot will toss garbage items
     io.write("Do you want to drop garbage blocks? [yes/no] ")
@@ -180,6 +182,7 @@ end
 
 -- turn the turtle right and mine
 function floorturnRight()
+    nextInvSlot()
     turtle.placeDown()
     turtle.turnRight()
     turtle.forward()
@@ -188,6 +191,7 @@ end
 
 -- turn left
 function floorturnLeft()
+    nextInvSlot()
     turtle.placeDown()
     turtle.turnLeft()
     turtle.forward()
@@ -196,11 +200,22 @@ end
 
 -- mines forward
 function floorForward()
+    nextInvSlot()
     turtle.placeDown()
     turtle.forward()
 end
 
-
+function nextInvSlot()
+    -- checs to see if current cursor in inv has a block
+    -- if so, place block. otherwise move to next cursor
+    if turtle.getItemCount() == 0
+    then 
+        -- increment to next slot
+        curItemSlot = curItemSlot + 1
+        print(curItemSlot)
+        turtle.select(curItemSlot)
+    end
+end
 
 -- Iterate through each slot of the inventory and drop it into the chest below it
 function emptyInventory(startingSlot)
