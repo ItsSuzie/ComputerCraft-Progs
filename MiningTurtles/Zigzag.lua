@@ -8,7 +8,7 @@ turtle.select(1)
 -- local maxTotalZigzagLen = 15
 
 -- if dig or place
-local mineorPlace = ""
+local mineorPlace = "mine"
 
 -- movement variables, for pathfinding back home
 local zigzagDepth = 0
@@ -28,7 +28,7 @@ local lastMiningPositionz = 0
 local mineDirection = 0
 
 -- moving home and dig down
-local digDown = ""
+local digDown = "no"
 local digDownAmount = 0
 
 -- Tossing garbage
@@ -36,7 +36,7 @@ local tossGarbageAtBlockInterval = 64
 local tossCounter = 0
 
 
-local tossGarbage = ""
+local tossGarbage = "no"
 local garbageItems = {}
 garbageItems[1] = "minecraft:cobblestone"
 garbageItems[2] = "minecraft:stone"
@@ -61,8 +61,9 @@ function start()
     term.setCursorPos(1,1)
 
     -- ask if we want to mine the blocks or place them
-    io.write("Do you want to mine or place the blocks? [mine/place] ")
-    mineorPlace = io.read()
+    -- io.write("Do you want to mine or place the blocks? [mine/place] ")
+    io.write("Welcome to Minnie's zigzag mining tool!")
+    -- mineorPlace = io.read()
 
     -- set depth and width to mine
     io.write("Rows: ")
@@ -75,21 +76,21 @@ function start()
     zigzagDepth = zigzagDepth - 2
 
     -- if the bot will toss garbage items
-    io.write("Do you want to drop garbage blocks? [yes/no] ")
-    tossGarbage = io.read()
+    -- io.write("Do you want to drop garbage blocks? [yes/no] ")
+    -- tossGarbage = io.read()
 
     -- updates garbage counter
     tossCounter = 0
     
     -- ask if want to dig down
-    io.write("Do you want me to return home and dig down? [yes/no] ")
-    digDown = io.read()
+    -- io.write("Do you want me to return home and dig down? [yes/no] ")
+    -- digDown = io.read()
 
-    if digDown == "yes"
-    then
-        io.write("How deep do you want me to dig? ")
-        digDownAmount = io.read()
-    end
+    -- if digDown == "yes"
+    -- then
+    --     io.write("How deep do you want me to dig? ")
+    --     digDownAmount = io.read()
+    -- end
 
     -- Updates ui
     info()
